@@ -1,0 +1,35 @@
+{
+  "name": "wasm-jit",
+  "version": "1.0.0",
+  "description": "WebAssembly JIT Compiler",
+  "main": "lib/wasm.js",
+  "scripts": {
+    "test": "mocha --reporter=spec test/*-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/indutny/wasm-jit.git"
+  },
+  "keywords": [
+    "wasm",
+    "web",
+    "assembly",
+    "jit",
+    "compiler",
+    "webasm",
+    "asm",
+    "web"
+  ],
+  "author": "Fedor Indutny <fedor@indutny.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/indutny/wasm-jit/issues"
+  },
+  "homepage": "https://github.com/indutny/wasm-jit#readme",
+  "dependencies": {
+    "json-pipeline": "^2.7.0",
+    "json-pipeline-scheduler": "^1.6.2",
+    "linearscan": "^1.0.0",
+    "ssa.js": "^1.1.1"
+  }
+}

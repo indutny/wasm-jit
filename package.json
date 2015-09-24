@@ -28,7 +28,7 @@
   "homepage": "https://github.com/indutny/wasm-jit#readme",
   "dependencies": {
     "bn.js": "^3.1.2",
-    "jit.js": "^1.1.1",
+    "jit.js": "^1.2.0",
     "json-pipeline-scheduler": "^1.6.2",
     "linearscan": "^1.0.0",
     "ssa.js": "^1.1.1"

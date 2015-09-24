@@ -30,7 +30,7 @@
     "bn.js": "^3.1.2",
     "jit.js": "^1.2.0",
     "json-pipeline-scheduler": "^1.6.2",
-    "linearscan": "^1.0.0",
+    "linearscan": "^2.0.2",
     "ssa.js": "^1.1.1"
   },
   "devDependencies": {

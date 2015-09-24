@@ -98,4 +98,22 @@ describe('wasm Compiler', function() {
       ret
     */});
   });
+
+  it('should work for floating point', function() {
+    testAsm(function() {/*
+      f64 main(f64 a) {
+        return f64.add(a, f64.const(123.456));
+      }
+    */}, function() {/*
+      push rbp
+      mov rbp, rsp
+      vmovq xmm1, [rbp, 0x10]
+      mov r15, 0x405edd2f1a9fbe77
+      vmovq xmm2, r15
+      vaddsd xmm1, xmm2
+      mov rsp, rbp
+      pop rbp
+      ret
+    */});
+  });
 });

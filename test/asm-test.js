@@ -135,4 +135,35 @@ describe('wasm Compiler', function() {
       ret
     */});
   });
+
+  it('should work with branches', function() {
+    testAsm(function() {/*
+      i64 main(i64 a) {
+        if (a) {
+          return a;
+        }
+        return i64.const(1);
+      }
+    */}, function() {/*
+      push rbp
+      mov rbp, rsp
+      mov rax, [rbp, 0x10]
+      test al, 0x0
+      setcc nz, eax
+      mov rbx, 0x1
+      mov rcx, [rbp, 0x10]
+      test al, 0x0
+      jcc z, 0x9
+
+      mov rax, rcx
+      mov rsp, rbp
+      pop rbp
+      ret
+
+      mov rax, rbx
+      mov rsp, rbp
+      pop rbp
+      ret
+    */});
+  });
 });

@@ -25,8 +25,8 @@ describe('wasm Compiler', function() {
       */}, function() {/*
         push rbp
         mov rbp, rsp
-        mov rax, [rbp, 0x10]
-        mov rbx, [rbp, 0x18]
+        mov rax, rdi
+        mov rbx, rsi
         add rax, rbx
         mov rsp, rbp
         pop rbp
@@ -42,7 +42,7 @@ describe('wasm Compiler', function() {
       */}, function() {/*
         push rbp
         mov rbp, rsp
-        mov eax, [ebp, 0x10]
+        mov eax, edi
         mov rsp, rbp
         pop rbp
         ret
@@ -57,7 +57,7 @@ describe('wasm Compiler', function() {
       */}, function() {/*
         push rbp
         mov rbp, rsp
-        movzxw rax, [rbp, 0x10]
+        movzxw rax, rdi
         mov rsp, rbp
         pop rbp
         ret
@@ -72,7 +72,7 @@ describe('wasm Compiler', function() {
       */}, function() {/*
         push rbp
         mov rbp, rsp
-        movzxb rax, [rbp, 0x10]
+        movzxb rax, rdi
         mov rsp, rbp
         pop rbp
         ret
@@ -88,8 +88,8 @@ describe('wasm Compiler', function() {
     */}, function() {/*
       push rbp
       mov rbp, rsp
-      mov rax, [rbp, 0x10]
-      mov rbx, [rbp, 0x18]
+      mov rax, rdi
+      mov rbx, rsi
       mov rcx, 0x54e
       add rbx, rcx
       add rax, rbx
@@ -107,10 +107,10 @@ describe('wasm Compiler', function() {
     */}, function() {/*
       push rbp
       mov rbp, rsp
-      vmovq xmm1, [rbp, 0x10]
+      vmovq xmm0, xmm0
       mov r15, 0x405edd2f1a9fbe77
-      vmovq xmm2, r15
-      vaddsd xmm1, xmm2
+      vmovq xmm1, r15
+      vaddsd xmm0, xmm1
       mov rsp, rbp
       pop rbp
       ret
@@ -126,10 +126,10 @@ describe('wasm Compiler', function() {
     */}, function() {/*
       push rbp
       mov rbp, rsp
-      vmovq xmm1, [rbp, 0x10]
+      vmovq xmm0, xmm0
       mov r15, 0x405edd2f1a9fbe77
-      vmovq xmm2, r15
-      vaddsd xmm1, xmm2
+      vmovq xmm1, r15
+      vaddsd xmm0, xmm1
       mov rsp, rbp
       pop rbp
       ret
@@ -147,13 +147,12 @@ describe('wasm Compiler', function() {
     */}, function() {/*
       push rbp
       mov rbp, rsp
-      mov rax, [rbp, 0x10]
+      mov rax, rdi
       test al, 0x0
-      setcc nz, eax
-      test al, 0x0
-      jcc z, 0xa
+      setcc nz, ebx
+      test ebx, 0x0
+      jcc z, 0x6
 
-      mov rax, [rbp, 0x10]
       mov rsp, rbp
       pop rbp
       ret

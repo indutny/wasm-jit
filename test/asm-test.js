@@ -150,17 +150,15 @@ describe('wasm Compiler', function() {
       mov rax, [rbp, 0x10]
       test al, 0x0
       setcc nz, eax
-      mov rbx, 0x1
-      mov rcx, [rbp, 0x10]
       test al, 0x0
-      jcc z, 0x9
+      jcc z, 0xa
 
-      mov rax, rcx
+      mov rax, [rbp, 0x10]
       mov rsp, rbp
       pop rbp
       ret
 
-      mov rax, rbx
+      mov rax, 0x1
       mov rsp, rbp
       pop rbp
       ret

@@ -80,7 +80,7 @@ describe('wasm Compiler', function() {
 
     it('should compile many params', function() {
       var code = 'i64 main(';
-      var count = 16;
+      var count = 9;
 
       var params = [];
       for (var i = 0; i < count; i++)
@@ -93,15 +93,40 @@ describe('wasm Compiler', function() {
         code += 'ti = i64.add(ti, pi' + i + ');\n';
         code += 'tf = f64.add(tf, pf' + i + ');\n';
       }
-      code += 'ti = i64.add(ti, i64.trunc_s(tf));\n';
+      code += 'ti = i64.add(ti, i64.trunc_s_64(tf));\n';
       code += 'return ti;\n';
       code += '}';
 
       testAsm(code, function() {/*
         push rbp
         mov rbp, rsp
-        mov rax, rdi
-        add rax, rsi
+        mov rax, [rbp, 0x10]
+        mov rbx, [rbp, 0x18]
+        mov r10, [rbp, 0x20]
+        vmovq xmm8, [rbp, 0x28]
+        mov r11, 0x0
+        add rdi, r11
+        add rdi, rsi
+        add rdx, rdi
+        add rcx, rdx
+        add rcx, r8
+        add rcx, r9
+        add rax, rcx
+        add rax, rbx
+        add rax, r10
+        mov r15, 0x0000000000000000
+        vmovq xmm9, r15
+        vaddsd xmm0, xmm9
+        vaddsd xmm0, xmm1
+        vaddsd xmm0, xmm2
+        vaddsd xmm0, xmm3
+        vaddsd xmm0, xmm4
+        vaddsd xmm0, xmm5
+        vaddsd xmm0, xmm6
+        vaddsd xmm0, xmm7
+        vaddsd xmm0, xmm8
+        vcvttsd2si rbx, xmm0
+        add rax, rbx
         mov rsp, rbp
         pop rbp
         ret

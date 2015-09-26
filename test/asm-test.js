@@ -100,23 +100,22 @@ describe('wasm Compiler', function() {
       testAsm(code, function() {/*
         push rbp
         mov rbp, rsp
-        mov rax, [rbp, 0x10]
-        mov rbx, [rbp, 0x18]
-        mov r10, [rbp, 0x20]
-        vmovq xmm8, [rbp, 0x28]
-        mov r11, 0x0
-        add rdi, r11
-        add rdi, rsi
-        add rdx, rdi
-        add rcx, rdx
-        add rcx, r8
-        add rcx, r9
+        mov rax, 0x0
+        add rax, rdi
+        add rax, rsi
+        add rax, rdx
         add rax, rcx
+        add rax, r8
+        add rax, r9
+        mov rbx, [rbp, 0x10]
         add rax, rbx
-        add rax, r10
+        mov rbx, [rbp, 0x18]
+        add rax, rbx
+        mov rbx, [rbp, 0x20]
+        add rax, rbx
         mov r15, 0x0000000000000000
-        vmovq xmm9, r15
-        vaddsd xmm0, xmm9
+        vmovq xmm8, r15
+        vaddsd xmm0, xmm8
         vaddsd xmm0, xmm1
         vaddsd xmm0, xmm2
         vaddsd xmm0, xmm3
@@ -124,7 +123,8 @@ describe('wasm Compiler', function() {
         vaddsd xmm0, xmm5
         vaddsd xmm0, xmm6
         vaddsd xmm0, xmm7
-        vaddsd xmm0, xmm8
+        vmovq xmm1, [rbp, 0x28]
+        vaddsd xmm0, xmm1
         vcvttsd2si rbx, xmm0
         add rax, rbx
         mov rsp, rbp

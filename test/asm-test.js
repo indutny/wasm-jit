@@ -77,6 +77,36 @@ describe('wasm Compiler', function() {
         ret
       */});
     });
+
+    it('should compile many params', function() {
+      var code = 'i64 main(';
+      var count = 16;
+
+      var params = [];
+      for (var i = 0; i < count; i++)
+        params.push('i64 pi' + i + ', f64 pf' + i);
+
+      code += params.join(', ') + ') {\n';
+      code += 'i64 ti = i64.const(0);\n';
+      code += 'f64 tf = f64.const(0);\n';
+      for (var i = 0; i < count; i++) {
+        code += 'ti = i64.add(ti, pi' + i + ');\n';
+        code += 'tf = f64.add(tf, pf' + i + ');\n';
+      }
+      code += 'ti = i64.add(ti, i64.trunc_s(tf));\n';
+      code += 'return ti;\n';
+      code += '}';
+
+      testAsm(code, function() {/*
+        push rbp
+        mov rbp, rsp
+        mov rax, rdi
+        add rax, rsi
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
   });
 
   it('should compile chain of expression', function() {

@@ -26,8 +26,7 @@ describe('wasm Compiler', function() {
         push rbp
         mov rbp, rsp
         mov rax, rdi
-        mov rbx, rsi
-        add rax, rbx
+        add rax, rsi
         mov rsp, rbp
         pop rbp
         ret
@@ -42,7 +41,7 @@ describe('wasm Compiler', function() {
       */}, function() {/*
         push rbp
         mov rbp, rsp
-        mov eax, edi
+        mov rax, rdi
         mov rsp, rbp
         pop rbp
         ret
@@ -57,7 +56,7 @@ describe('wasm Compiler', function() {
       */}, function() {/*
         push rbp
         mov rbp, rsp
-        movzxw rax, rdi
+        mov rax, rdi
         mov rsp, rbp
         pop rbp
         ret
@@ -72,7 +71,7 @@ describe('wasm Compiler', function() {
       */}, function() {/*
         push rbp
         mov rbp, rsp
-        movzxb rax, rdi
+        mov rax, rdi
         mov rsp, rbp
         pop rbp
         ret
@@ -88,11 +87,9 @@ describe('wasm Compiler', function() {
     */}, function() {/*
       push rbp
       mov rbp, rsp
-      mov rax, rdi
-      mov rbx, rsi
-      mov rcx, 0x54e
-      add rbx, rcx
-      add rax, rbx
+      mov rax, 0x54e
+      add rax, rsi
+      add rax, rdi
       mov rsp, rbp
       pop rbp
       ret
@@ -107,7 +104,6 @@ describe('wasm Compiler', function() {
     */}, function() {/*
       push rbp
       mov rbp, rsp
-      vmovq xmm0, xmm0
       mov r15, 0x405edd2f1a9fbe77
       vmovq xmm1, r15
       vaddsd xmm0, xmm1
@@ -126,7 +122,6 @@ describe('wasm Compiler', function() {
     */}, function() {/*
       push rbp
       mov rbp, rsp
-      vmovq xmm0, xmm0
       mov r15, 0x405edd2f1a9fbe77
       vmovq xmm1, r15
       vaddsd xmm0, xmm1
@@ -147,12 +142,10 @@ describe('wasm Compiler', function() {
     */}, function() {/*
       push rbp
       mov rbp, rsp
-      mov rax, rdi
-      test al, 0x0
-      setcc nz, ebx
-      test ebx, 0x0
-      jcc z, 0x6
+      test edi, 0x0
+      jcc z, 0x9
 
+      mov rax, rdi
       mov rsp, rbp
       pop rbp
       ret

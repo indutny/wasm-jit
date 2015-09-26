@@ -93,6 +93,10 @@ describe('wasm Compiler', function() {
         code += 'ti = i64.add(ti, pi' + i + ');\n';
         code += 'tf = f64.add(tf, pf' + i + ');\n';
       }
+      for (var i = 0; i < count; i++) {
+        code += 'ti = i64.add(ti, pi' + i + ');\n';
+        code += 'tf = f64.add(tf, pf' + i + ');\n';
+      }
       code += 'ti = i64.add(ti, i64.trunc_s_64(tf));\n';
       code += 'return ti;\n';
       code += '}';
@@ -113,8 +117,30 @@ describe('wasm Compiler', function() {
         add rax, rbx
         mov rbx, [rbp, 0x20]
         add rax, rbx
+        add rax, rdi
+        add rax, rsi
+        add rax, rdx
+        add rax, rcx
+        add rax, r8
+        add rax, r9
+        mov rbx, [rbp, 0x10]
+        add rax, rbx
+        mov rbx, [rbp, 0x18]
+        add rax, rbx
+        mov rbx, [rbp, 0x20]
+        add rax, rbx
         mov r15, 0x0000000000000000
         vmovq xmm8, r15
+        vaddsd xmm8, xmm0
+        vaddsd xmm8, xmm1
+        vaddsd xmm8, xmm2
+        vaddsd xmm8, xmm3
+        vaddsd xmm8, xmm4
+        vaddsd xmm8, xmm5
+        vaddsd xmm8, xmm6
+        vaddsd xmm8, xmm7
+        vmovq xmm9, [rbp, 0x28]
+        vaddsd xmm8, xmm9
         vaddsd xmm0, xmm8
         vaddsd xmm0, xmm1
         vaddsd xmm0, xmm2

@@ -291,4 +291,47 @@ describe('wasm Compiler', function() {
       ret
     */});
   });
+
+  it('should propagate constants', function() {
+    testAsm(function() {/*
+      i64 main() {
+        i64 t = i64.const(42);
+        t = i64.add(t, t);
+        t = i64.add(t, i64.const(13));
+        return t;
+      }
+    */}, function() {/*
+      push rbp
+      mov rbp, rsp
+      mov rax, 0x61
+      mov rsp, rbp
+      pop rbp
+      ret
+    */});
+  });
+
+  it('should combine constant propagation with reachability analysis',
+     function() {
+    testAsm(function() {/*
+      i64 main() {
+        i64 t = i64.const(-42);
+        t = i64.add(t, i64.const(41));
+        if (t) {
+          if (t) {
+            return i64.const(1);
+          }
+        } else {
+          return i64.const(2);
+        }
+        return i64.const(-1);
+      }
+    */}, function() {/*
+      push rbp
+      mov rbp, rsp
+      mov rax, 0x1
+      mov rsp, rbp
+      pop rbp
+      ret
+    */});
+  });
 });

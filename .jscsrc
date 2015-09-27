@@ -4,7 +4,7 @@
   "disallowMultipleLineStrings": true,
   "disallowMultipleVarDecl": true,
   "disallowNewlineBeforeBlockStatements": true,
-  "disallowQuotedKeysInObjects": true,
+  "disallowQuotedKeysInObjects": false,
   "disallowSpaceAfterObjectKeys": true,
   "disallowSpaceAfterPrefixUnaryOperators": true,
   "disallowSpaceBeforePostfixUnaryOperators": true,
@@ -36,7 +36,7 @@
   "requireSpacesInForStatement": true,
   "requireSpacesInsideArrayBrackets": "all",
   "requireSpacesInsideObjectBrackets": "all",
-  "requireDotNotation": true,
+  "requireDotNotation": false,
 
   "maximumLineLength": 80,
   "validateIndentation": 2,

@@ -237,4 +237,25 @@ describe('wasm Compiler', function() {
       ret
     */});
   });
+
+  it('should remove unreachable code', function() {
+    testAsm(function() {/*
+      i64 main() {
+        return i64.const(1);
+        return i64.const(2);
+        return i64.const(3);
+        return i64.const(4);
+        return i64.const(5);
+        return i64.const(6);
+        return i64.const(7);
+      }
+    */}, function() {/*
+      push rbp
+      mov rbp, rsp
+      mov rax, 0x1
+      mov rsp, rbp
+      pop rbp
+      ret
+    */});
+  });
 });

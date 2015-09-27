@@ -334,4 +334,26 @@ describe('wasm Compiler', function() {
       ret
     */});
   });
+
+  it('should compile forever loop', function() {
+    testAsm(function() {/*
+      i64 main() {
+        i64 t = i64.const(0);
+        forever {
+           t = i64.add(t, i64.const(1));
+        }
+        return t;
+      }
+    */}, function() {/*
+      push rbp
+      mov rbp, rsp
+      mov rax, 0x0
+      mov rbx, 0x1
+      add rax, rbx
+      jmp -0x5
+      mov rsp, rbp
+      pop rbp
+      ret
+    */});
+  });
 });

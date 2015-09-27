@@ -84,6 +84,7 @@
 
     // Custom Globals
     "globals"       : {
-        "module": true
+        "module": true,
+        "Map": true
     }        // additional predefined global variables
 }

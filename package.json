@@ -4,7 +4,7 @@
   "description": "WebAssembly JIT Compiler",
   "main": "lib/wasm.js",
   "scripts": {
-    "test": "mocha --reporter=spec test/*-test.js && jscs lib/*.js lib/**/*.js lib/**/**/*.js lib/**/**/**/*.js test/*.js && jshint lib/*.js lib/**/*.js lib/**/**/*.js lib/**/**/**/*.js"
+    "test": "mocha --reporter=spec test/*-test.js && make lint"
   },
   "repository": {
     "type": "git",

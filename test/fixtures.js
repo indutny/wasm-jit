@@ -29,12 +29,15 @@ exports.testReduction = function testReduction(reduction, input, expected) {
   var p = pipeline.create('cfg');
   p.parse(exports.fn2str(input), { cfg: true }, 'printable');
 
+  require('fs').writeFileSync('/tmp/before.gv', p.render({ cfg: true }, 'graphviz'));
+
   var reducer = Reducer.create();
   reducer.addReduction(reduction);
   reducer.reduce(p);
 
   var scheduled = Scheduler.create(p).run();
   scheduled.reindex();
+  require('fs').writeFileSync('/tmp/after.gv', scheduled.render({ cfg: true }, 'graphviz'));
   assertText.equal(scheduled.render({ cfg: true }, 'printable'),
                    exports.fn2str(expected));
 };

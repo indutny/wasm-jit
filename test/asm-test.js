@@ -259,4 +259,56 @@ describe('wasm Compiler', function() {
       ret
     */});
   });
+
+  it('should compile forever loop with break/continue', function() {
+    testAsm(function() {/*
+      i64 main() {
+        i64 t = i64.const(0);
+        forever {
+           t = i64.add(t, i64.const(1));
+           if (t)
+             continue;
+           else
+             break;
+        }
+        return t;
+      }
+    */}, function() {/*
+      push rbp
+      mov rbp, rsp
+      mov rax, 0x0
+      mov rbx, 0x1
+      add rax, rbx
+      test al, 0x0
+      jcc z, 0x2
+      jmp -0x9
+      mov rsp, rbp
+      pop rbp
+      ret
+    */});
+  });
+
+  it('should compile do {} while loop', function() {
+    testAsm(function() {/*
+      i64 main() {
+        i64 t = i64.const(10);
+        do {
+          t = i64.add(t, i64.const(-1));
+        } while (t);
+        return t;
+      }
+    */}, function() {/*
+      push rbp
+      mov rbp, rsp
+      mov rax, 0xa
+      mov rbx, -0x1
+      add rax, rbx
+      test al, 0x0
+      jcc z, 0x2
+      jmp -0x9
+      mov rsp, rbp
+      pop rbp
+      ret
+    */});
+  });
 });

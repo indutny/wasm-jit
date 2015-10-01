@@ -33,6 +33,7 @@
     "json-pipeline-reducer": "^1.4.0",
     "json-pipeline-scheduler": "^2.0.0",
     "linearscan": "^4.0.0",
+    "mmap.js": "^1.0.1",
     "ssa.js": "^2.0.0"
   },
   "devDependencies": {

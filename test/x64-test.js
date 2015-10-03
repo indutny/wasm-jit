@@ -351,7 +351,7 @@ describe('wasm Compiler/x64', function() {
   it('should compile calls', function() {
     testAsm(function() {/*
       i64 main() {
-        return add(i64.const(123), i64.const(456) ,i64.const(789));
+        return add(i64.const(123), i64.const(456), i64.const(789));
       }
 
       i64 add(i64 a, i64 b, i64 c) {

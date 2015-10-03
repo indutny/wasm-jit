@@ -351,7 +351,8 @@ describe('wasm Compiler/x64', function() {
   it('should compile calls', function() {
     testAsm(function() {/*
       i64 main() {
-        return add(i64.const(123), i64.const(456), i64.const(789));
+        i64 t = i64.const(123);
+        return add(t, i64.const(456), t);
       }
 
       i64 add(i64 a, i64 b, i64 c) {
@@ -362,13 +363,17 @@ describe('wasm Compiler/x64', function() {
       mov rbp, rsp
       mov rdi, 0x7b
       mov rsi, 0x1c8
-      mov rdx, 0x315
-      lea rax, [rip, 0xf]
+      mov rdx, rdi
+      lea rax, [rip, 0x13]
       call eax
       mov rsp, rbp
       pop rbp
       ret
 
+      int3
+      int3
+      int3
+      int3
       int3
       int3
       int3

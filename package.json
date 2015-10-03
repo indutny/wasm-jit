@@ -29,7 +29,7 @@
   "dependencies": {
     "bn.js": "^3.2.0",
     "dominance-frontier": "^2.0.0",
-    "jit.js": "^1.3.0",
+    "jit.js": "^1.4.0",
     "json-pipeline-reducer": "^1.4.0",
     "json-pipeline-scheduler": "^2.0.0",
     "linearscan": "^4.0.0",
@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "assert-text": "^1.1.2",
-    "disasm": "^1.3.0",
+    "disasm": "^1.4.0",
     "jscs": "^2.1.1",
     "jshint": "^2.8.0",
     "json-pipeline": "^3.8.0",

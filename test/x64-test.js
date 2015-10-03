@@ -347,4 +347,43 @@ describe('wasm Compiler/x64', function() {
       ret
     */});
   });
+
+  it('should compile calls', function() {
+    testAsm(function() {/*
+      i64 main() {
+        return add(i64.const(123), i64.const(456) ,i64.const(789));
+      }
+
+      i64 add(i64 a, i64 b, i64 c) {
+        return i64.add(a, b);
+      }
+    */}, function() {/*
+      push rbp
+      mov rbp, rsp
+      mov rdi, 0x7b
+      mov rsi, 0x1c8
+      mov rdx, 0x315
+      lea rax, [rip, 0xf]
+      call eax
+      mov rsp, rbp
+      pop rbp
+      ret
+
+      int3
+      int3
+      int3
+      int3
+      int3
+      int3
+      int3
+
+      push rbp
+      mov rbp, rsp
+      mov rax, rdi
+      add rax, rsi
+      mov rsp, rbp
+      pop rbp
+      ret
+    */});
+  });
 });

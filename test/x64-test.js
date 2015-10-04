@@ -353,7 +353,8 @@ describe('wasm Compiler/x64', function() {
     testAsm(function() {/*
       i64 main() {
         i64 t = i64.const(123);
-        return add(t, i64.const(456), t);
+        i64 a = add(t, i64.const(456), t);
+        return i64.add(t, a);
       }
 
       i64 add(i64 a, i64 b, i64 c) {
@@ -362,27 +363,18 @@ describe('wasm Compiler/x64', function() {
     */}, function() {/*
       push rbp
       mov rbp, rsp
+      sub rsp, 0x10
       mov rdi, 0x7b
       mov rsi, 0x1c8
+      mov [rbp, -0x8], rdi
       mov rdx, rdi
-      lea rax, [rip, 0x13]
+      lea rax, [rip, 0x1b]
       call eax
+      add rax, [rbp, -0x8]
       mov rsp, rbp
       pop rbp
       ret
-
-      int3
-      int3
-      int3
-      int3
-      int3
-      int3
-      int3
-      int3
-      int3
-      int3
-      int3
-
+      (padding)
       push rbp
       mov rbp, rsp
       mov rax, rdi

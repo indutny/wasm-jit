@@ -20,7 +20,8 @@ exports.testAsm = function testAsm(input, expected) {
 
   var info = c.generateCode(exports.fn2str(input));
   var asm = disasm.create('x64').disasm(info.buffer);
-  asm = disasm.stringify(asm);
+  var pad = /int3\s*\n(\s*int3\s*\n)*/g;
+  asm = disasm.stringify(asm).replace(pad, '(padding)\n');
 
   assertText.equal(asm, exports.fn2str(expected));
 };

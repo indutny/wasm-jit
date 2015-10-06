@@ -16,148 +16,20 @@ describe('wasm Compiler/x64', function() {
     */});
   });
 
-  describe('params', function() {
-    it('should compile i64 params', function() {
-      testAsm(function() {/*
-        i64 main(i64 a, i64 b) {
-          return i64.add(a, b);
-        }
-      */}, function() {/*
-        push rbp
-        mov rbp, rsp
-        mov rax, rdi
-        add rax, rsi
-        mov rsp, rbp
-        pop rbp
-        ret
-      */});
-    });
-
-    it('should compile i32 params', function() {
-      testAsm(function() {/*
-        i32 main(i32 a) {
-          return a;
-        }
-      */}, function() {/*
-        push rbp
-        mov rbp, rsp
-        mov rax, rdi
-        mov rsp, rbp
-        pop rbp
-        ret
-      */});
-    });
-
-    it('should compile i16 params', function() {
-      testAsm(function() {/*
-        i16 main(i16 a) {
-          return a;
-        }
-      */}, function() {/*
-        push rbp
-        mov rbp, rsp
-        mov rax, rdi
-        mov rsp, rbp
-        pop rbp
-        ret
-      */});
-    });
-
-    it('should compile i8 params', function() {
-      testAsm(function() {/*
-        i8 main(i8 a) {
-          return a;
-        }
-      */}, function() {/*
-        push rbp
-        mov rbp, rsp
-        mov rax, rdi
-        mov rsp, rbp
-        pop rbp
-        ret
-      */});
-    });
-
-    it('should compile many params', function() {
-      var code = 'i64 main(';
-      var count = 9;
-
-      var params = [];
-      for (var i = 0; i < count; i++)
-        params.push('i64 pi' + i + ', f64 pf' + i);
-
-      code += params.join(', ') + ') {\n';
-      code += 'i64 ti = i64.const(0);\n';
-      code += 'f64 tf = f64.const(0);\n';
-      for (var i = 0; i < count; i++) {
-        code += 'ti = i64.add(ti, pi' + i + ');\n';
-        code += 'tf = f64.add(tf, pf' + i + ');\n';
+  it('should compile i64 params', function() {
+    testAsm(function() {/*
+      i64 main(i64 a, i64 b) {
+        return i64.add(a, b);
       }
-      for (var i = 0; i < count; i++) {
-        code += 'ti = i64.add(ti, pi' + i + ');\n';
-        code += 'tf = f64.add(tf, pf' + i + ');\n';
-      }
-      code += 'ti = i64.add(ti, i64.trunc_s_64(tf));\n';
-      code += 'return ti;\n';
-      code += '}';
-
-      testAsm(code, function() {/*
-        push rbp
-        mov rbp, rsp
-        mov rax, 0x0
-        add rax, rdi
-        add rax, rsi
-        add rax, rdx
-        add rax, rcx
-        add rax, r8
-        add rax, r9
-        mov rbx, [rbp, 0x10]
-        add rax, rbx
-        mov rbx, [rbp, 0x18]
-        add rax, rbx
-        mov rbx, [rbp, 0x20]
-        add rax, rbx
-        add rax, rdi
-        add rax, rsi
-        add rax, rdx
-        add rax, rcx
-        add rax, r8
-        add rax, r9
-        mov rbx, [rbp, 0x10]
-        add rax, rbx
-        mov rbx, [rbp, 0x18]
-        add rax, rbx
-        mov rbx, [rbp, 0x20]
-        add rax, rbx
-        mov r15, 0x0000000000000000
-        vmovq xmm8, r15
-        vaddsd xmm8, xmm0
-        vaddsd xmm8, xmm1
-        vaddsd xmm8, xmm2
-        vaddsd xmm8, xmm3
-        vaddsd xmm8, xmm4
-        vaddsd xmm8, xmm5
-        vaddsd xmm8, xmm6
-        vaddsd xmm8, xmm7
-        vmovq xmm9, [rbp, 0x28]
-        vaddsd xmm8, xmm9
-        vaddsd xmm0, xmm8
-        vaddsd xmm0, xmm1
-        vaddsd xmm0, xmm2
-        vaddsd xmm0, xmm3
-        vaddsd xmm0, xmm4
-        vaddsd xmm0, xmm5
-        vaddsd xmm0, xmm6
-        vaddsd xmm0, xmm7
-        vmovq xmm1, [rbp, 0x28]
-        vaddsd xmm0, xmm1
-        vcvttsd2si rbx, xmm0
-        add rax, rbx
-        mov rsp, rbp
-        pop rbp
-        ret
-      */});
-    });
+    */}, function() {/*
+      push rbp
+      mov rbp, rsp
+      mov rax, rsi
+      add rax, rdx
+      mov rsp, rbp
+      pop rbp
+      ret
+    */});
   });
 
   it('should compile chain of expression', function() {
@@ -169,8 +41,8 @@ describe('wasm Compiler/x64', function() {
       push rbp
       mov rbp, rsp
       mov rax, 0x54e
+      add rax, rdx
       add rax, rsi
-      add rax, rdi
       mov rsp, rbp
       pop rbp
       ret
@@ -223,13 +95,11 @@ describe('wasm Compiler/x64', function() {
     */}, function() {/*
       push rbp
       mov rbp, rsp
-      test edi, 0x0
-      far-jcc z, 0x9
+      test esi, 0x0
+      far-jcc z, 0x8
 
-      mov rax, rdi
-      mov rsp, rbp
-      pop rbp
-      ret
+      mov rax, rsi
+      jmp 0x7
 
       mov rax, 0x1
       mov rsp, rbp
@@ -251,12 +121,9 @@ describe('wasm Compiler/x64', function() {
       push rbp
       mov rbp, rsp
       mov rax, 0x0
-      mov rbx, 0x1
-      add rax, rbx
+      mov rcx, 0x1
+      add rax, rcx
       jmp -0x8
-      mov rsp, rbp
-      pop rbp
-      ret
     */});
   });
 
@@ -277,8 +144,8 @@ describe('wasm Compiler/x64', function() {
       push rbp
       mov rbp, rsp
       mov rax, 0x0
-      mov rbx, 0x1
-      add rax, rbx
+      mov rcx, 0x1
+      add rax, rcx
       test al, 0x0
       far-jcc z, 0x5
       jmp -0x10
@@ -301,8 +168,8 @@ describe('wasm Compiler/x64', function() {
       push rbp
       mov rbp, rsp
       mov rax, 0xa
-      mov rbx, -0x1
-      add rax, rbx
+      mov rcx, -0x1
+      add rax, rcx
       test al, 0x0
       far-jcc z, 0x5
       jmp -0x10
@@ -324,25 +191,27 @@ describe('wasm Compiler/x64', function() {
       push rbp
       mov rbp, rsp
 
-      mov rax, [r14, 0x0]
-      mov rbx, 0x0
-      mov rcx, [r14, 0x8]
-
-      lea r15, [rbx, 0x8]
-      cmp r15, rcx
+      mov rax, [rdi, 0x0]
+      mov rcx, 0x0
+      mov rdx, [rdi, 0x8]
+      lea r15, [rcx, 0x8]
+      cmp r15, rdx
       jcc le, 0x5
-      xor rdx, rdx
+
+      xor rdi, rdi
       jmp 0x3
-      mov rdx, rbx
-      mov rdi, 0xdead
-      mov [rax, rdx, 0x0], rdi
 
-      lea r15, [rbx, 0x8]
-      cmp r15, rcx
+      mov rdi, rcx
+
+      mov rsi, 0xdead
+      mov [rax, rdi, 0x0], rsi
+      lea r15, [rcx, 0x8]
+      cmp r15, rdx
       jcc le, 0x3
-      xor rbx, rbx
-      mov rax, [rax, rbx, 0x0]
 
+      xor rcx, rcx
+
+      mov rax, [rax, rcx, 0x0]
       mov rsp, rbp
       pop rbp
       ret
@@ -364,21 +233,23 @@ describe('wasm Compiler/x64', function() {
       push rbp
       mov rbp, rsp
       sub rsp, 0x10
-      mov rdi, 0x7b
-      mov rsi, 0x1c8
-      mov [rbp, -0x8], rdi
-      mov rdx, rdi
-      lea rax, [rip, 0x1b]
+      mov [rbp, -0x8], rbx
+      mov rsi, 0x7b
+      mov rdx, 0x1c8
+      mov rbx, rsi
+      mov rcx, rsi
+      lea rax, [rip, 0x18]
       call eax
-      add rax, [rbp, -0x8]
+      add rax, rbx
+      mov rbx, [rbp, -0x8]
       mov rsp, rbp
       pop rbp
       ret
       (padding)
       push rbp
       mov rbp, rsp
-      mov rax, rdi
-      add rax, rsi
+      mov rax, rsi
+      add rax, rdx
       mov rsp, rbp
       pop rbp
       ret

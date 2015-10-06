@@ -42,6 +42,20 @@ describe('wasm Compiler/API', function() {
       }
     */}).fib;
 
-    assert.equal(fib(ctx, 83), 160500643816367088);
+    function referenceFib(count) {
+      var a = 1;
+      var b = 1;
+      var i = count;
+      do {
+        var c = a + b;
+        a = b;
+        b = c;
+        i = i - 1;
+      } while (i);
+      return a;
+    }
+
+    for (var i = 1; i < 60; i++)
+      assert.equal(fib(ctx, i), referenceFib(i));
   });
 });

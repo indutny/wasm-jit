@@ -95,7 +95,7 @@ describe('wasm Compiler/x64', function() {
     */}, function() {/*
       push rbp
       mov rbp, rsp
-      test esi, 0x0
+      cmp rsi, 0x0
       far-jcc z, 0x8
 
       mov rax, rsi
@@ -146,9 +146,9 @@ describe('wasm Compiler/x64', function() {
       mov rax, 0x0
       mov rcx, 0x1
       add rax, rcx
-      test al, 0x0
+      cmp rax, 0x0
       far-jcc z, 0x5
-      jmp -0x10
+      jmp -0x14
       mov rsp, rbp
       pop rbp
       ret
@@ -170,9 +170,9 @@ describe('wasm Compiler/x64', function() {
       mov rax, 0xa
       mov rcx, -0x1
       add rax, rcx
-      test al, 0x0
+      cmp rax, 0x0
       far-jcc z, 0x5
-      jmp -0x10
+      jmp -0x14
       mov rsp, rbp
       pop rbp
       ret
@@ -198,13 +198,13 @@ describe('wasm Compiler/x64', function() {
       cmp r15, rdx
       jcc le, 0x5
 
-      xor rdi, rdi
+      xor rsi, rsi
       jmp 0x3
 
-      mov rdi, rcx
+      mov rsi, rcx
 
-      mov rsi, 0xdead
-      mov [rax, rdi, 0x0], rsi
+      mov r8, 0xdead
+      mov [rax, rsi, 0x0], r8
       lea r15, [rcx, 0x8]
       cmp r15, rdx
       jcc le, 0x3

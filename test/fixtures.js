@@ -18,7 +18,7 @@ exports.fn2str = function fn2str(fn) {
 exports.testAsm = function testAsm(input, expected) {
   var c = wasm.Compiler.create();
 
-  var info = c.generateCode(exports.fn2str(input));
+  var info = c.generateCode(exports.fn2str(input)).reloc;
   var asm = disasm.create('x64').disasm(info.buffer);
   var pad = /int3\s*\n(\s*int3\s*\n)*/g;
   asm = disasm.stringify(asm).replace(pad, '(padding)\n');
@@ -38,4 +38,10 @@ exports.testReduction = function testReduction(reduction, input, expected) {
   scheduled.reindex();
   assertText.equal(scheduled.render({ cfg: true }, 'printable'),
                    exports.fn2str(expected));
+};
+
+exports.compile = function compile(input) {
+  var c = wasm.Compiler.create();
+
+  return c.compile(exports.fn2str(input));
 };

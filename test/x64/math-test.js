@@ -29,7 +29,9 @@ describe('wasm Compiler/x64/math', function() {
         push rbp
         mov rbp, rsp
         mov rax, 0x1
-        sub rax, rsi
+        mov r15, rsi
+        sub r15, rax
+        mov rax, r15
         mov rsp, rbp
         pop rbp
         ret

@@ -29,7 +29,7 @@
   "dependencies": {
     "bn.js": "^3.2.0",
     "dominance-frontier": "^2.0.0",
-    "jit.js": "^1.4.0",
+    "jit.js": "^1.4.3",
     "json-pipeline-reducer": "^1.4.0",
     "json-pipeline-scheduler": "^2.0.0",
     "linearscan": "^4.1.0",

@@ -1,5 +1,5 @@
 var assert = require('assert');
-var fixtures = require('./fixtures');
+var fixtures = require('../fixtures');
 var testAsm = fixtures.testAsm;
 
 describe('wasm Compiler/x64', function() {
@@ -43,23 +43,6 @@ describe('wasm Compiler/x64', function() {
       mov rax, 0x54e
       add rax, rdx
       add rax, rsi
-      mov rsp, rbp
-      pop rbp
-      ret
-    */});
-  });
-
-  it('should work for floating point', function() {
-    testAsm(function() {/*
-      f64 main(f64 a) {
-        return f64.add(a, f64.const(123.456));
-      }
-    */}, function() {/*
-      push rbp
-      mov rbp, rsp
-      mov r15, 0x405edd2f1a9fbe77
-      vmovq xmm1, r15
-      vaddsd xmm0, xmm1
       mov rsp, rbp
       pop rbp
       ret

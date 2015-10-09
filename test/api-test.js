@@ -1,4 +1,6 @@
 var assert = require('assert');
+var jit = require('jit.js');
+
 var fixtures = require('./fixtures');
 var compile = fixtures.compile;
 
@@ -7,6 +9,7 @@ describe('wasm Compiler/API', function() {
   beforeEach(function() {
     ctx = new Buffer(16);
     ctx.fill(0);
+    ctx = jit.ptr(ctx);
   });
 
   it('should run empty function', function() {

@@ -179,21 +179,12 @@ describe('wasm Compiler/x64', function() {
       mov rdx, [rdi, 0x8]
       lea r15, [rcx, 0x8]
       cmp r15, rdx
-      jcc le, 0x5
-
-      xor rsi, rsi
-      jmp 0x3
-
-      mov rsi, rcx
-
-      mov r8, 0xdead
-      mov [rax, rsi, 0x0], r8
-      lea r15, [rcx, 0x8]
-      cmp r15, rdx
       jcc le, 0x3
 
       xor rcx, rcx
 
+      mov rdx, 0xdead
+      mov [rax, rcx, 0x0], rdx
       mov rax, [rax, rcx, 0x0]
       mov rsp, rbp
       pop rbp

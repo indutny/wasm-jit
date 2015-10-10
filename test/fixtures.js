@@ -6,6 +6,7 @@ assertText.options.trim = true;
 var pipeline = require('json-pipeline');
 var Reducer = require('json-pipeline-reducer');
 var Scheduler = require('json-pipeline-scheduler');
+var GVN = require('gvn');
 var disasm = require('disasm');
 var fixtures = require('./fixtures');
 
@@ -32,6 +33,23 @@ exports.testReduction = function testReduction(reduction, input, expected) {
 
   var reducer = Reducer.create();
   reducer.addReduction(reduction);
+  reducer.reduce(p);
+
+  var scheduled = Scheduler.create(p).run();
+  scheduled.reindex();
+  assertText.equal(scheduled.render({ cfg: true }, 'printable'),
+                   exports.fn2str(expected));
+};
+
+exports.testGVN = function testGVN(relation, input, expected) {
+  var p = pipeline.create('cfg');
+  p.parse(exports.fn2str(input), { cfg: true }, 'printable');
+
+  var gvn = GVN.create();
+  gvn.addRelation(relation);
+
+  var reducer = Reducer.create();
+  reducer.addReduction(gvn);
   reducer.reduce(p);
 
   var scheduled = Scheduler.create(p).run();

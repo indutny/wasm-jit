@@ -122,5 +122,39 @@ describe('wasm Compiler/x64/math', function() {
         ret
       */});
     });
+
+    it('should support f32.mul', function() {
+      testAsm(function() {/*
+        f32 main(f32 a) {
+          return f32.mul(a, f32.const(123.456));
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        mov r15, 0x42f6e979
+        vmovd xmm1, r15
+        vmulss xmm0, xmm1
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
+    it('should support f64.mul', function() {
+      testAsm(function() {/*
+        f64 main(f64 a) {
+          return f64.mul(a, f64.const(123.456));
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        mov r15, 0x405edd2f1a9fbe77
+        vmovq xmm1, r15
+        vmulsd xmm0, xmm1
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
   });
 });

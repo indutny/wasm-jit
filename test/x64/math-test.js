@@ -53,6 +53,39 @@ describe('wasm Compiler/x64/math', function() {
         ret
       */});
     });
+
+    it('should support i64.and', function() {
+      testAsm(function() {/*
+        i64 main(i64 a) {
+          return i64.and(a, i64.const(0x1));
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        mov rax, 0x1
+        and rax, rsi
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
+    it('should support i64.shl', function() {
+      testAsm(function() {/*
+        i64 main(i64 a) {
+          return i64.shl(a, i64.const(0x4));
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        mov rcx, 0x4
+        mov rax, rsi
+        shl rax, cl
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
   });
 
   describe('floating point', function() {

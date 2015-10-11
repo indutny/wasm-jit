@@ -86,6 +86,96 @@ describe('wasm Compiler/x64/math', function() {
         ret
       */});
     });
+
+    it('should support i64.clz', function() {
+      testAsm(function() {/*
+        i64 main(i64 a) {
+          return i64.clz(a);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        lzcnt rax, rsi
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
+    it('should support i32.clz', function() {
+      testAsm(function() {/*
+        i32 main(i32 a) {
+          return i32.clz(a);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        lzcnt eax, esi
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
+    it('should support i64.ctz', function() {
+      testAsm(function() {/*
+        i64 main(i64 a) {
+          return i64.ctz(a);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        tzcnt rax, rsi
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
+    it('should support i32.ctz', function() {
+      testAsm(function() {/*
+        i32 main(i32 a) {
+          return i32.ctz(a);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        tzcnt eax, esi
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
+    it('should support i64.popcnt', function() {
+      testAsm(function() {/*
+        i64 main(i64 a) {
+          return i64.popcnt(a);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        popcnt rax, rsi
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
+    it('should support i32.popcnt', function() {
+      testAsm(function() {/*
+        i32 main(i32 a) {
+          return i32.popcnt(a);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        popcnt eax, esi
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
   });
 
   describe('floating point', function() {

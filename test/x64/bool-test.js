@@ -2,7 +2,7 @@ var assert = require('assert');
 var fixtures = require('../fixtures');
 var testAsm = fixtures.testAsm;
 
-describe('wasm Compiler/x64/math', function() {
+describe('wasm Compiler/x64/bool', function() {
   describe('int', function() {
     it('should support i64.eq', function() {
       testAsm(function() {/*

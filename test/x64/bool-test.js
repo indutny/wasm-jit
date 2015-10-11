@@ -6,7 +6,7 @@ describe('wasm Compiler/x64/bool', function() {
   describe('int', function() {
     it('should support i64.eq', function() {
       testAsm(function() {/*
-        i8 main(i64 a) {
+        i32 main(i64 a) {
           return i64.eq(a, i64.const(0x1));
         }
       */}, function() {/*
@@ -23,7 +23,7 @@ describe('wasm Compiler/x64/bool', function() {
 
     it('should support i64.gt_u', function() {
       testAsm(function() {/*
-        i8 main(i64 a) {
+        i32 main(i64 a) {
           return i64.gt_u(a, i64.const(0x1));
         }
       */}, function() {/*
@@ -64,7 +64,7 @@ describe('wasm Compiler/x64/bool', function() {
   describe('truncating bools', function() {
     it('should support i32.eq', function() {
       testAsm(function() {/*
-        i8 main(i32 a) {
+        i32 main(i32 a) {
           return i32.eq(a, i32.const(0x1));
         }
       */}, function() {/*
@@ -83,7 +83,7 @@ describe('wasm Compiler/x64/bool', function() {
 
     it('should support i32.gt_s', function() {
       testAsm(function() {/*
-        i8 main(i32 a) {
+        i32 main(i32 a) {
           return i32.gt_s(a, i32.const(0x1));
         }
       */}, function() {/*
@@ -104,7 +104,7 @@ describe('wasm Compiler/x64/bool', function() {
   describe('floating point', function() {
     it('should support f64.eq', function() {
       testAsm(function() {/*
-        i8 main(f64 a, f64 b) {
+        i32 main(f64 a, f64 b) {
           return f64.eq(a, b);
         }
       */}, function() {/*
@@ -120,7 +120,7 @@ describe('wasm Compiler/x64/bool', function() {
 
     it('should support f32.eq', function() {
       testAsm(function() {/*
-        i8 main(f32 a, f32 b) {
+        i32 main(f32 a, f32 b) {
           return f32.eq(a, b);
         }
       */}, function() {/*

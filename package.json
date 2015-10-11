@@ -36,8 +36,8 @@
     "linearscan": "^5.0.0",
     "mmap.js": "^1.0.1",
     "ssa.js": "^2.0.0",
-    "wasm-ast": "^1.0.0",
-    "wasm-cfg": "^1.2.6"
+    "wasm-ast": "^2.0.0",
+    "wasm-cfg": "^2.0.0"
   },
   "devDependencies": {
     "assert-text": "^1.1.2",

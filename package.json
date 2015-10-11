@@ -37,7 +37,7 @@
     "mmap.js": "^1.0.1",
     "ssa.js": "^2.0.0",
     "wasm-ast": "^1.0.0",
-    "wasm-cfg": "^1.2.1"
+    "wasm-cfg": "^1.2.6"
   },
   "devDependencies": {
     "assert-text": "^1.1.2",

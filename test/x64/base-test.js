@@ -166,8 +166,8 @@ describe('wasm Compiler/x64', function() {
     testAsm(function() {/*
       i64 main() {
         i64 t = i64.const(0);
-        i64.store(addr.from_i64(t), i64.const(0xdead));
-        i64 l = i64.load(addr.from_i64(t));
+        i64.store(addr.from_64(t), i64.const(0xdead));
+        i64 l = i64.load(addr.from_64(t));
         return l;
       }
     */}, function() {/*

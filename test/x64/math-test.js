@@ -53,62 +53,6 @@ describe('wasm Compiler/x64/math', function() {
         ret
       */});
     });
-
-    it('should support i64.eq', function() {
-      testAsm(function() {/*
-        i64 main(i64 a) {
-          return i64.eq(a, i64.const(0x1));
-        }
-      */}, function() {/*
-        push rbp
-        mov rbp, rsp
-        mov rax, 0x1
-        cmp rsi, rax
-        setcc z, eax
-        mov rsp, rbp
-        pop rbp
-        ret
-      */});
-    });
-
-    it('should support i64.eq in branch', function() {
-      testAsm(function() {/*
-        i64 main(i64 a, i64 b) {
-          if (i64.eq(a, b))
-            return a;
-          else
-            return b;
-        }
-      */}, function() {/*
-        push rbp
-        mov rbp, rsp
-        cmp rsi, rdx
-        far-jcc nz, 0x8
-        mov rax, rsi
-        jmp 0x3
-        mov rax, rdx
-        mov rsp, rbp
-        pop rbp
-        ret
-      */});
-    });
-
-    it('should support i64.ne', function() {
-      testAsm(function() {/*
-        i64 main(i64 a) {
-          return i64.ne(a, i64.const(0x1));
-        }
-      */}, function() {/*
-        push rbp
-        mov rbp, rsp
-        mov rax, 0x1
-        cmp rsi, rax
-        setcc nz, eax
-        mov rsp, rbp
-        pop rbp
-        ret
-      */});
-    });
   });
 
   describe('floating point', function() {

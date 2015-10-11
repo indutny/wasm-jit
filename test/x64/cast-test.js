@@ -126,4 +126,20 @@ describe('wasm Compiler/x64/cast', function() {
       ret
     */});
   });
+
+  it('should compile i32.from_addr', function() {
+    testAsm(function() {/*
+      i32 main() {
+        return i32.from_addr(addr.from_64(i64.const(0xdead)));
+      }
+    */}, function() {/*
+      push rbp
+      mov rbp, rsp
+      mov rax, 0xdead
+      mov eax, eax
+      mov rsp, rbp
+      pop rbp
+      ret
+    */});
+  });
 });

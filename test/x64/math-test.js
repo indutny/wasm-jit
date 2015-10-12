@@ -445,5 +445,20 @@ describe('wasm Compiler/x64/math', function() {
         ret
       */});
     });
+
+    it('should support f64.trunc', function() {
+      testAsm(function() {/*
+        f64 main(f64 a) {
+          return f64.trunc(a);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        vroundsd xmm0, xmm0, 0x3
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
   });
 });

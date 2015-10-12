@@ -54,6 +54,60 @@ describe('wasm Compiler/x64/math', function() {
       */});
     });
 
+    it('should support i64.div_s', function() {
+      testAsm(function() {/*
+        i64 main(i64 a, i64 b) {
+          return i64.div_s(a, b);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        mov rcx, rdx
+        mov rax, rsi
+        xor rdx, rdx
+        idiv rax, rcx
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
+    it('should support i64.div_u', function() {
+      testAsm(function() {/*
+        i64 main(i64 a, i64 b) {
+          return i64.div_u(a, b);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        mov rcx, rdx
+        mov rax, rsi
+        xor rdx, rdx
+        div rax, rcx
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
+    it('should support i32.div_s', function() {
+      testAsm(function() {/*
+        i32 main(i32 a, i32 b) {
+          return i32.div_s(a, b);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        mov rcx, rdx
+        mov rax, rsi
+        xor rdx, rdx
+        idiv rax, ecx
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
     it('should support i64.and', function() {
       testAsm(function() {/*
         i64 main(i64 a) {

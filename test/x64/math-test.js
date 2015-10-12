@@ -460,5 +460,20 @@ describe('wasm Compiler/x64/math', function() {
         ret
       */});
     });
+
+    it('should support f64.max', function() {
+      testAsm(function() {/*
+        f64 main(f64 a, f64 b) {
+          return f64.max(a, b);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        vmaxsd xmm0, xmm1
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
   });
 });

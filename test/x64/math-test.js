@@ -370,5 +370,35 @@ describe('wasm Compiler/x64/math', function() {
         ret
       */});
     });
+
+    it('should support f64.sqrt', function() {
+      testAsm(function() {/*
+        f64 main(f64 a) {
+          return f64.sqrt(a);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        vsqrtsd xmm0, xmm0
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
+    it('should support f32.sqrt', function() {
+      testAsm(function() {/*
+        f32 main(f32 a) {
+          return f32.sqrt(a);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        vsqrtss xmm0, xmm0
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
   });
 });

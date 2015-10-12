@@ -172,4 +172,34 @@ describe('wasm Compiler/x64/cast', function() {
       ret
     */});
   });
+
+  it('should support f64.promote', function() {
+    testAsm(function() {/*
+      f64 main(f32 a) {
+        return f64.promote(a);
+      }
+    */}, function() {/*
+      push rbp
+      mov rbp, rsp
+      vcvtss2sd xmm0, xmm0
+      mov rsp, rbp
+      pop rbp
+      ret
+    */});
+  });
+
+  it('should support f32.demote', function() {
+    testAsm(function() {/*
+      f32 main(f64 a) {
+        return f32.demote(a);
+      }
+    */}, function() {/*
+      push rbp
+      mov rbp, rsp
+      vcvtsd2ss xmm0, xmm0
+      mov rsp, rbp
+      pop rbp
+      ret
+    */});
+  });
 });

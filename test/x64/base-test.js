@@ -162,36 +162,6 @@ describe('wasm Compiler/x64', function() {
     */});
   });
 
-  it('should compile memory stores/loads', function() {
-    testAsm(function() {/*
-      i64 main() {
-        i64 t = i64.const(0);
-        i64.store(addr.from_64(t), i64.const(0xdead));
-        i64 l = i64.load(addr.from_64(t));
-        return l;
-      }
-    */}, function() {/*
-      push rbp
-      mov rbp, rsp
-
-      mov rax, [rdi, 0x0]
-      mov rcx, 0x0
-      mov rdx, [rdi, 0x8]
-      lea r15, [rcx, 0x8]
-      cmp r15, rdx
-      jcc le, 0x3
-
-      xor rcx, rcx
-
-      mov rdx, 0xdead
-      mov [rax, rcx, 0x0], rdx
-      mov rax, [rax, rcx, 0x0]
-      mov rsp, rbp
-      pop rbp
-      ret
-    */});
-  });
-
   it('should compile calls', function() {
     testAsm(function() {/*
       i64 main() {

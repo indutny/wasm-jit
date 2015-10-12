@@ -64,7 +64,7 @@ describe('wasm Compiler/x64/math', function() {
         mov rbp, rsp
         mov rcx, rdx
         mov rax, rsi
-        xor rdx, rdx
+        cwd
         idiv rax, rcx
         mov rsp, rbp
         pop rbp
@@ -100,7 +100,7 @@ describe('wasm Compiler/x64/math', function() {
         mov rbp, rsp
         mov rcx, rdx
         mov rax, rsi
-        xor rdx, rdx
+        cwd
         idiv rax, ecx
         mov rsp, rbp
         pop rbp
@@ -118,7 +118,7 @@ describe('wasm Compiler/x64/math', function() {
         mov rbp, rsp
         mov rcx, rdx
         mov rax, rsi
-        xor rdx, rdx
+        cwd
         idiv rax, rcx
         mov rax, rdx
         mov rsp, rbp

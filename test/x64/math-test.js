@@ -461,6 +461,74 @@ describe('wasm Compiler/x64/math', function() {
       */});
     });
 
+    it('should support f64.abs', function() {
+      testAsm(function() {/*
+        f64 main(f64 a) {
+          return f64.abs(a);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        vpcmpeqd xmm15, xmm15
+        vpsrlq xmm15, 0x1
+        vandpd xmm0, xmm15
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
+    it('should support f32.abs', function() {
+      testAsm(function() {/*
+        f32 main(f32 a) {
+          return f32.abs(a);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        vpcmpeqd xmm15, xmm15
+        vpsrlq xmm15, 0x21
+        vandpd xmm0, xmm15
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
+    it('should support f64.neg', function() {
+      testAsm(function() {/*
+        f64 main(f64 a) {
+          return f64.neg(a);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        vpcmpeqd xmm15, xmm15
+        vpsllq xmm15, 0x3f
+        vxorpd xmm0, xmm15
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
+    it('should support f32.neg', function() {
+      testAsm(function() {/*
+        f32 main(f32 a) {
+          return f32.neg(a);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        vpcmpeqd xmm15, xmm15
+        vpsllq xmm15, 0x1f
+        vxorpd xmm0, xmm15
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
     it('should support f64.max', function() {
       testAsm(function() {/*
         f64 main(f64 a, f64 b) {

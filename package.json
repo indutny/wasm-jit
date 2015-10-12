@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "assert-text": "^1.1.2",
-    "disasm": "^1.4.0",
+    "disasm": "^1.5.0",
     "jscs": "^2.1.1",
     "jshint": "^2.8.0",
     "json-pipeline": "^3.8.0",

@@ -139,4 +139,56 @@ describe('wasm Compiler/x64/Memory', function() {
       ret
     */});
   });
+
+  it('should compile f32 load/store', function() {
+    testAsm(function() {/*
+      f32 main(f32 a) {
+        i64 t = i64.const(0);
+        f32.store(addr.from_64(t), a);
+        return f32.load(addr.from_64(t));
+      }
+    */}, function() {/*
+      push rbp
+      mov rbp, rsp
+
+      mov rax, [rdi, 0x0]
+      mov rcx, 0x0
+      mov rdx, [rdi, 0x8]
+      lea r15, [rcx, 0x4]
+      cmp r15, rdx
+      jcc le, 0x3
+      xor rcx, rcx
+      vmovd [eax, ecx, 0x0], xmm0
+      vmovd xmm0, [eax, ecx, 0x0]
+      mov rsp, rbp
+      pop rbp
+      ret
+    */});
+  });
+
+  it('should compile f64 load/store', function() {
+    testAsm(function() {/*
+      f64 main(f64 a) {
+        i64 t = i64.const(0);
+        f64.store(addr.from_64(t), a);
+        return f64.load(addr.from_64(t));
+      }
+    */}, function() {/*
+      push rbp
+      mov rbp, rsp
+
+      mov rax, [rdi, 0x0]
+      mov rcx, 0x0
+      mov rdx, [rdi, 0x8]
+      lea r15, [rcx, 0x8]
+      cmp r15, rdx
+      jcc le, 0x3
+      xor rcx, rcx
+      vmovq [rax, rcx, 0x0], xmm0
+      vmovq xmm0, [rax, rcx, 0x0]
+      mov rsp, rbp
+      pop rbp
+      ret
+    */});
+  });
 });

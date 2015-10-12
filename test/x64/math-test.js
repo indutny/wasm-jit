@@ -475,5 +475,35 @@ describe('wasm Compiler/x64/math', function() {
         ret
       */});
     });
+
+    it('should support f64.sub', function() {
+      testAsm(function() {/*
+        f64 main(f64 a, f64 b) {
+          return f64.sub(a, b);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        vsubsd xmm0, xmm1
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
+    it('should support f64.div', function() {
+      testAsm(function() {/*
+        f64 main(f64 a, f64 b) {
+          return f64.div(a, b);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        vdivsd xmm0, xmm1
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
   });
 });

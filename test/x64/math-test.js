@@ -108,6 +108,25 @@ describe('wasm Compiler/x64/math', function() {
       */});
     });
 
+    it('should support i64.rem_s', function() {
+      testAsm(function() {/*
+        i64 main(i64 a, i64 b) {
+          return i64.rem_s(a, b);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        mov rcx, rdx
+        mov rax, rsi
+        xor rdx, rdx
+        idiv rax, rcx
+        mov rax, rdx
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
+
     it('should support i64.and', function() {
       testAsm(function() {/*
         i64 main(i64 a) {

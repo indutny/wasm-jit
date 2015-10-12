@@ -573,5 +573,26 @@ describe('wasm Compiler/x64/math', function() {
         ret
       */});
     });
+
+    it('should support f64.copysign', function() {
+      testAsm(function() {/*
+        f64 main(f64 a, f64 b) {
+          return f64.copysign(a, b);
+        }
+      */}, function() {/*
+        push rbp
+        mov rbp, rsp
+        vpcmpeqd xmm15, xmm15
+        vpsrlq xmm15, 0x1
+        vandpd xmm0, xmm15
+        vpcmpeqd xmm15, xmm15
+        vpsllq xmm15, 0x3f
+        vandpd xmm15, xmm1
+        vxorpd xmm0, xmm15
+        mov rsp, rbp
+        pop rbp
+        ret
+      */});
+    });
   });
 });

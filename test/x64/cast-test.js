@@ -157,4 +157,19 @@ describe('wasm Compiler/x64/cast', function() {
       ret
     */});
   });
+
+  it('should support f64.reinterpret', function() {
+    testAsm(function() {/*
+      f64 main(i64 a) {
+        return f64.reinterpret(a);
+      }
+    */}, function() {/*
+      push rbp
+      mov rbp, rsp
+      vmovq xmm0, rsi
+      mov rsp, rbp
+      pop rbp
+      ret
+    */});
+  });
 });

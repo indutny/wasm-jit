@@ -16,6 +16,8 @@ describe('wasm Compiler/API', function() {
     var main = compile(function() {/*
       void main() {
       }
+
+      export main
     */}).main;
     main();
   });
@@ -25,6 +27,8 @@ describe('wasm Compiler/API', function() {
       i64 add(i64 a, i64 b) {
         return i64.add(a, b);
       }
+
+      export add
     */}).add;
     assert.equal(add(ctx, 1, 2), 3);
   });
@@ -43,6 +47,8 @@ describe('wasm Compiler/API', function() {
         } while (i);
         return a;
       }
+
+      export fib
     */}).fib;
 
     function referenceFib(count) {
@@ -73,6 +79,8 @@ describe('wasm Compiler/API', function() {
         return i64.add(fib(i64.sub(count, i64.const(2))),
                        fib(i64.sub(count, i64.const(1))));
       }
+
+      export fib
     */}).fib;
 
     function referenceFib(count) {

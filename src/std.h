@@ -11,9 +11,11 @@ class WasmContext {
   ~WasmContext();
 
   void Resize(uintptr_t size);
+  uint8_t* Load(uintptr_t off, uintptr_t size);
 
   static void Free(char* data, void* hint);
-  static void ResizeMemory(void* data, uintptr_t size);
+  static void ResizeMemory(void* ictx, uintptr_t size);
+  static void Print(void* ictx, uintptr_t str, uintptr_t size);
 
   inline char* data() { return reinterpret_cast<char*>(&space); }
   inline size_t data_length() { return sizeof(space); }

@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "nan.h"
@@ -37,6 +38,14 @@ void WasmContext::Resize(uintptr_t size) {
 }
 
 
+uint8_t* WasmContext::Load(uintptr_t off, uintptr_t size) {
+  if (off + size > space.size)
+    return nullptr;
+
+  return space.ptr + off;
+}
+
+
 void WasmContext::Free(char* data, void* hint) {
   WasmContext* ctx = reinterpret_cast<WasmContext*>(hint);
   delete ctx;
@@ -54,14 +63,25 @@ NAN_METHOD(CreateContext) {
 }
 
 
-void WasmContext::ResizeMemory(void* data, uintptr_t size) {
-  WasmContext* ctx = container_of(data, WasmContext, space);
+void WasmContext::ResizeMemory(void* ictx, uintptr_t size) {
+  WasmContext* ctx = container_of(ictx, WasmContext, space);
   ctx->Resize(size);
 }
 
 
 static void FreeFn(char* data, void* hint) {
   // No-op
+}
+
+
+void WasmContext::Print(void* ictx, uintptr_t str, uintptr_t size) {
+  WasmContext* ctx = container_of(ictx, WasmContext, space);
+  uint8_t* data = ctx->Load(str, size);
+  if (data == nullptr)
+    return;
+
+  fprintf(stdout, "%.*s", static_cast<int>(size),
+          reinterpret_cast<char*>(data));
 }
 
 
@@ -76,6 +96,8 @@ static Local<Value> GetFnPtr(uintptr_t fn) {
 static void Init(Handle<Object> target) {
   target->Set(Nan::New("resize_memory").ToLocalChecked(),
               GetFnPtr(reinterpret_cast<uintptr_t>(WasmContext::ResizeMemory)));
+  target->Set(Nan::New("print").ToLocalChecked(),
+              GetFnPtr(reinterpret_cast<uintptr_t>(WasmContext::Print)));
 
   Nan::SetMethod(target, "createContext", CreateContext);
 }

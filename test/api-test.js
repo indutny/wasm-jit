@@ -91,10 +91,10 @@ describe('wasm Compiler/API', function() {
       assert.equal(fib(ctx, i), referenceFib(i));
   });
 
-  it('should resize memory', function() {
+  it('should grow memory', function() {
     var resize = compile(function() {/*
       void resize() {
-        std::resize_memory(addr.from_64(i64.const(0x1000)));
+        std::grow_memory(addr.from_64(i64.const(0x1000)));
       }
 
       export resize

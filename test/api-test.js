@@ -1,5 +1,4 @@
 var assert = require('assert');
-var jit = require('jit.js');
 
 var wasm = require('../');
 var fixtures = require('./fixtures');
@@ -8,9 +7,7 @@ var compile = fixtures.compile;
 describe('wasm Compiler/API', function() {
   var ctx;
   beforeEach(function() {
-    var buf = wasm.std.createContext();
-    ctx = jit.ptr(buf);
-    ctx.context = buf;
+    ctx = wasm.std.createContext();
   });
 
   it('should run empty function', function() {

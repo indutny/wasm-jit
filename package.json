@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/indutny/wasm-jit#readme",
   "dependencies": {
+    "bindings": "^1.2.1",
     "bn.js": "^3.2.0",
     "dominance-frontier": "^2.0.0",
     "gvn": "^1.0.0",
@@ -35,6 +36,7 @@
     "json-pipeline-scheduler": "^2.0.0",
     "linearscan": "^5.1.0",
     "mmap.js": "^1.0.1",
+    "nan": "^2.1.0",
     "ssa.js": "^2.0.0",
     "wasm-ast": "^3.0.1",
     "wasm-cfg": "^3.0.0"

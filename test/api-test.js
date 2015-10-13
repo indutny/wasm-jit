@@ -1,15 +1,16 @@
 var assert = require('assert');
 var jit = require('jit.js');
 
+var wasm = require('../');
 var fixtures = require('./fixtures');
 var compile = fixtures.compile;
 
 describe('wasm Compiler/API', function() {
   var ctx;
   beforeEach(function() {
-    ctx = new Buffer(16);
-    ctx.fill(0);
-    ctx = jit.ptr(ctx);
+    var buf = wasm.std.createContext();
+    ctx = jit.ptr(buf);
+    ctx.context = buf;
   });
 
   it('should run empty function', function() {
@@ -19,7 +20,7 @@ describe('wasm Compiler/API', function() {
 
       export main
     */}).main;
-    main();
+    main(ctx);
   });
 
   it('should run add function', function() {
@@ -91,5 +92,17 @@ describe('wasm Compiler/API', function() {
 
     for (var i = 1; i < 10; i++)
       assert.equal(fib(ctx, i), referenceFib(i));
+  });
+
+  it('should resize memory', function() {
+    var resize = compile(function() {/*
+      void resize() {
+        std::resize_memory(addr.from_64(i64.const(0x1000)));
+      }
+
+      export resize
+    */}).resize;
+
+    resize(ctx);
   });
 });

@@ -8,7 +8,7 @@ var wasm = require('wasm-jit');
 var compiler = wasm.Compiler.create();
 
 var module = 'your-module-name';
-var src = 'void main()\n' +
+var src = 'void main() {}\n' +
           'export main';
 var info = compiler.compile(module, src);
 

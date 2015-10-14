@@ -22,7 +22,7 @@ WasmContext::WasmContext() {
 
 WasmContext::~WasmContext() {
   delete[] space.ptr;
-  space.ptr = nullptr;
+  space.ptr = NULL;
   space.size = 0;
 }
 
@@ -40,7 +40,7 @@ void WasmContext::Resize(uintptr_t size) {
 
 uint8_t* WasmContext::Load(uintptr_t off, uintptr_t size) {
   if (off + size > space.size)
-    return nullptr;
+    return NULL;
 
   return space.ptr + off;
 }
@@ -77,7 +77,7 @@ static void FreeFn(char* data, void* hint) {
 void WasmContext::Print(void* ictx, uintptr_t str, uintptr_t size) {
   WasmContext* ctx = container_of(ictx, WasmContext, space);
   uint8_t* data = ctx->Load(str, size);
-  if (data == nullptr)
+  if (data == NULL)
     return;
 
   fprintf(stdout, "%.*s", static_cast<int>(size),
@@ -89,7 +89,7 @@ static Local<Value> GetFnPtr(uintptr_t fn) {
   return Nan::NewBuffer(reinterpret_cast<char*>(fn),
                         64,
                         FreeFn,
-                        nullptr).ToLocalChecked();
+                        NULL).ToLocalChecked();
 }
 
 

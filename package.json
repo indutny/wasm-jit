@@ -1,6 +1,6 @@
 {
   "name": "wasm-jit",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "WebAssembly JIT Compiler",
   "main": "lib/wasm.js",
   "scripts": {
